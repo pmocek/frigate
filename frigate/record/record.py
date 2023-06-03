@@ -37,7 +37,7 @@ def manage_recordings(
     setproctitle("frigate.recording_manager")
     listen()
 
-    db = SqliteQueueDatabase(config.database.path)
+    db = SqliteQueueDatabase(config.database.path, timeout=len(config.cameras.keys()) * 5)
     models = [Event, Recordings, Timeline]
     db.bind(models)
 

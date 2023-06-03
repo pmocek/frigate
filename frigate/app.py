@@ -197,7 +197,7 @@ class FrigateApp:
     def bind_database(self) -> None:
         """Bind db to the main process."""
         # NOTE: all db accessing processes need to be created before the db can be bound to the main process
-        self.db = SqliteQueueDatabase(self.config.database.path)
+        self.db = SqliteQueueDatabase(self.config.database.path, timeout=len(self.config.cameras.keys()) * 5)
         models = [Event, Recordings, Timeline]
         self.db.bind(models)
 
